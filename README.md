@@ -193,9 +193,9 @@ The `FIFOTransmitter` module plays a crucial role in encoding and serially trans
 
 --- 
 
-# Decoder Module Overview
+## Decoder Module Overview
 
-## Entity Definition
+### Entity Definition
 - **Generic Parameters**:
   - `K`: Number of message bits (default is 4, range 0 to 31).
   - `N`: Number of codeword bits (default is 7, range 0 to 31).
@@ -209,21 +209,21 @@ The `FIFOTransmitter` module plays a crucial role in encoding and serially trans
   - `Error_Happened`: Input signal indicating error detection.
   - `Syndrome`: Output vector representing the error syndrome.
 
-## Architecture (Behavioral)
+### Architecture (Behavioral)
 - Uses a generator polynomial `GP` to perform syndrome calculation for error detection and correction.
 - Employs shift registers `D_Syndrome`, `Q_Syndrome`, `D_Buffer`, and `Q_Buffer` for processing the data and syndrome.
 
-### Main Logic
+#### Main Logic
 1. **Syndrome Calculation**: Dynamically generates the syndrome based on the incoming data and error occurrence.
 2. **Buffer Management**: Shifts incoming data through buffer registers to align with decoding process.
 3. **Error Detection and Correction Logic**: Utilizes the syndrome to detect and correct errors in the incoming data stream.
 
-### Process Flow
+#### Process Flow
 - Controlled by the clock signal, the process block handles data and syndrome register updates, error detection, and data output preparation.
 - On reset, all internal signals and counters are reinitialized.
 - Processes data bit-by-bit, updating the output based on the calculated syndrome and maintaining counters to manage the decoding cycle.
 
-## Functionality
+### Functionality
 - The `Decoder` decodes serially received encoded data, checking and correcting errors based on the generator polynomial and syndrome analysis.
 - It outputs corrected data bits serially, with `Valid_out` indicating the availability of valid decoded data.
 
@@ -251,9 +251,9 @@ The `FIFOTransmitter` module plays a crucial role in encoding and serially trans
 
 
 
-# Decode Module Overview
+## Decode Module Overview
 
-## Entity Definition
+### Entity Definition
 - **Generic Parameters**:
   - `K`: The number of message bits, defaulting to 4 with a range up to 31.
   - `N`: The number of codeword bits, defaulting to 7 with a range up to 31.
@@ -265,22 +265,22 @@ The `FIFOTransmitter` module plays a crucial role in encoding and serially trans
   - `V`: Input codeword vector.
   - `U`: Output message vector.
 
-## Architecture (Behavioral)
+### Architecture (Behavioral)
 - Implements state machine logic for managing decoding process.
 - Instantiates the `Decoder` and `ErrorPattern_DetectionCircuit` components.
 
-### Main Components and Signals
+#### Main Components and Signals
 - **`Decoder`**: Component that performs the actual decoding.
 - **`ErrorPattern_DetectionCircuit`**: Component for detecting and identifying error patterns in the received codeword.
 - **`U_Reg`, `V_Reg`**: Buffers for input and output data handling.
 - **State Machine**: Handles different stages of the decoding process (`Idle`, `Busy_Decoding`, `Output`, `Preparing`).
 
-### Process Flow
+#### Process Flow
 - Controlled by the system clock, with specific actions triggered on the rising edge.
 - Uses a state machine approach to manage the entire decoding process, transitioning between states based on control signals and internal logic.
 - During the `Busy_Decoding` state, the module feeds data into the `Decoder` component serially and collects the decoded output.
 
-## Functionality
+### Functionality
 - `Decode` acts as a wrapper for the `Decoder`, managing data flow and coordinating the decoding process, including error detection and correction.
 - It synchronizes the serial data stream with the system’s parallel data handling, providing a fully integrated decoding solution in the communication system.
 
