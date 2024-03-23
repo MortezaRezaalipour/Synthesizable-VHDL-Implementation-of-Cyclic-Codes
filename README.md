@@ -1,6 +1,31 @@
 # FPGA-Based Cyclic Code Communication System
 
 
+## 1. Serial Receiver - Encoder - Serial Transmitter
+
+### Objective
+To encode a message for error correction.
+
+### Process
+- **Generate a message bitstream** on a computer, simulating the original data to be sent.
+- **Transmit the bitstream serially** to the FPGA's first circuit.
+- **Encode the bitstream** within the FPGA using a cyclic code encoder. This step introduces redundancy into the message, allowing for error detection and correction at the receiver.
+- **Transmit the encoded bitstream** back to the computer, simulating the sending of encoded data over a communication channel.
+
+## 2. Serial Receiver - Decoder - Serial Transmitter
+
+### Objective
+To decode the encoded message and correct any errors.
+
+### Process
+- **Receive the encoded bitstream** on the second circuit of the FPGA, simulating the reception of transmitted data.
+- **Decode the bitstream** using the cyclic code decoder. This step involves checking for errors and correcting them to recover the original message.
+- **Transmit the corrected bitstream** back to the computer, demonstrating the recovery of the original message despite the presence of errors.
+
+
+---
+
+
 ### Requirements
 
 Install ghdl to compile codes and gtkwave to show signals visually.
@@ -29,27 +54,6 @@ Install make, ghdl and gtkwave using [msys2](https://www.msys2.org/)
 
 [gtkwave](https://packages.msys2.org/base/mingw-w64-gtkwave)
 
-
-## 1. Serial Receiver - Encoder - Serial Transmitter
-
-### Objective
-To encode a message for error correction.
-
-### Process
-- **Generate a message bitstream** on a computer, simulating the original data to be sent.
-- **Transmit the bitstream serially** to the FPGA's first circuit.
-- **Encode the bitstream** within the FPGA using a cyclic code encoder. This step introduces redundancy into the message, allowing for error detection and correction at the receiver.
-- **Transmit the encoded bitstream** back to the computer, simulating the sending of encoded data over a communication channel.
-
-## 2. Serial Receiver - Decoder - Serial Transmitter
-
-### Objective
-To decode the encoded message and correct any errors.
-
-### Process
-- **Receive the encoded bitstream** on the second circuit of the FPGA, simulating the reception of transmitted data.
-- **Decode the bitstream** using the cyclic code decoder. This step involves checking for errors and correcting them to recover the original message.
-- **Transmit the corrected bitstream** back to the computer, demonstrating the recovery of the original message despite the presence of errors.
 
 
 --- 
